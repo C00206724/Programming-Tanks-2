@@ -10,6 +10,7 @@ void AiControlSystem::configure(entityx::EventManager& events)
    events.subscribe<EvReportPlayerId>(*this);
    events.subscribe<entityx::ComponentAddedEvent<Ai>>(*this);
    events.subscribe<entityx::ComponentAddedEvent<Wall>>(*this);
+   events.subscribe<entityx::ComponentAddedEvent<WaypointData>>(*this);
 }
 
 void AiControlSystem::receive(const EvReportPlayerId& e)
@@ -20,9 +21,10 @@ void AiControlSystem::receive(const EvReportPlayerId& e)
 void AiControlSystem::receive(const entityx::ComponentAddedEvent<Ai>& e)
 {
     Ai::Handle ai = e.component;
-    m_tankAi.reset(new TankAi(m_obstacles, ai->m_id));	// id of turret
-	m_tankAi.reset(new TankAi(m_waypoints, ai->m_id));  // 
+    m_tankAi.reset(new TankAi(m_obstacles, m_waypoints, ai->m_id));	// id of turret 
 }
+
+ 
 
 void AiControlSystem::receive(const entityx::ComponentAddedEvent<Wall>& e)
 {
@@ -41,11 +43,11 @@ void AiControlSystem::receive(const entityx::ComponentAddedEvent<Wall>& e)
 void AiControlSystem::receive(const entityx::ComponentAddedEvent<WaypointData>& e)
 {
 	entityx::Entity ent = e.entity;
-	Volume::Handle wayPointVol = ent.component<Volume>();
+	//Volume::Handle wayPointVol = ent.component<Volume>();
 	Position::Handle waypointPos = ent.component<Position>();
-	Display::Handle waypointDisplay = ent.component<Display>();
+	//Display::Handle waypointDisplay = ent.component<Display>();
 
-	sf::CircleShape circle(wayPointVol->m_box.getRect().width * 1.5f);
+	sf::CircleShape circle(waypointPos->m_rotation); // rotation is actually the radius here
 	circle.setOrigin(circle.getRadius(), circle.getRadius());
 	circle.setPosition(waypointPos->m_position);
 	m_waypoints.push_back(circle);

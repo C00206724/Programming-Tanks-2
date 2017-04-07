@@ -1,7 +1,8 @@
 ﻿  TankAi.cpp
-g:\ecs_example-master\src\ai\tankai.cpp(98): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-g:\ecs_example-master\src\ai\tankai.cpp(141): warning C4553: '==': operator has no effect; did you intend '='?
-g:\ecs_example-master\src\ai\tankai.cpp(142): warning C4018: '<': signed/unsigned mismatch
+g:\ecs_example-master\src\ai\tankai.cpp(112): warning C4018: '>': signed/unsigned mismatch
+g:\ecs_example-master\src\ai\tankai.cpp(145): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+g:\ecs_example-master\src\ai\tankai.cpp(188): warning C4553: '==': operator has no effect; did you intend '='?
+g:\ecs_example-master\src\ai\tankai.cpp(189): warning C4018: '<': signed/unsigned mismatch
   ECS_Example.vcxproj -> G:\ECS_Example-master\Debug\ECS_Example.exe
   ECS_Example.vcxproj -> G:\ECS_Example-master\Debug\ECS_Example.pdb (Partial PDB)
   G:\ECS_Example-master\dlls\sfml-audio-2.dll

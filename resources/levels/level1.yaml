@@ -5,7 +5,7 @@ tank:
    max_projectiles: 10
    reload_time: 1000  
 ai_tank:
-   position: {x: 100, y: 800}
+   position: {x: 300, y: 800}
    max_projectiles: 10
    reload_time: 1000  
 projectile:
@@ -85,9 +85,21 @@ obstacles:
      position: {x: 1032, y: 632}
      rotation: 0
 waypoints:
-   - position: {x: 900, y: 500}
-     radius : 10
-   - position: {x: 800, y: 450}
-     radius : 10
-   - position: {x: 850, y: 450}
-     radius : 10
+   - position: {x: 900, y: 700}
+     radius : 50
+   - position: {x: 800, y: 600}
+     radius : 50
+   - position: {x: 700, y: 450}
+     radius : 50
+   - position: {x: 600, y: 350}
+     radius : 50
+   - position: {x: 500, y: 200}
+     radius : 50
+   - position: {x: 600, y: 50}
+     radius : 50
+   - position: {x: 500, y: 250}
+     radius : 50
+   - position: {x: 600, y: 350}
+     radius : 50
+   - position: {x: 700, y: 450}
+     radius : 50

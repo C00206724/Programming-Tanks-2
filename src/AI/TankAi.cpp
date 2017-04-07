@@ -1,10 +1,12 @@
 #include "ai/TankAi.h"
 
 
-TankAi::TankAi(std::vector<sf::CircleShape> const & obstacles, entityx::Entity::Id id)
-  : m_aiBehaviour(AiBehaviour::SEEK_PLAYER)
-  , m_steering(0,0)
-  , m_obstacles(obstacles)
+TankAi::TankAi(std::vector<sf::CircleShape> const & obstacles, std::vector<sf::CircleShape> const & waypoints, entityx::Entity::Id id)
+	: m_aiBehaviour(AiBehaviour::SEEK_PLAYER)
+	, m_steering(0, 0)
+	, m_obstacles(obstacles)
+	, m_waypoints(waypoints)
+	, m_currentWaypoint(0)
 {
 }
 
@@ -74,18 +76,63 @@ void TankAi::update(entityx::Entity::Id playerId,
 
 sf::Vector2f TankAi::seek(entityx::Entity::Id playerId,
 						  entityx::Entity::Id aiId,
-	                      entityx::EntityManager& entities) const
+	                      entityx::EntityManager& entities) 
 {
-	entityx::Entity aiTank = entities.get(aiId);
+	/*entityx::Entity aiTank = entities.get(aiId);
 	Position::Handle aiPos = aiTank.component<Position>();
 
 	entityx::Entity playerTank = entities.get(playerId);
 	Position::Handle playerpos = playerTank.component<Position>();
 
 	sf::Vector2f aiReturned;
-	aiReturned = playerpos->m_position - aiPos->m_position;
+	aiReturned = playerpos->m_position - aiPos->m_position;*/
 
-	return aiReturned;
+	entityx::Entity aiTank = entities.get(aiId);
+	Position::Handle aiPos = aiTank.component<Position>();
+	sf::Vector2f aiVec = aiPos->m_position;
+
+	bool nextwaypoint = false;
+
+	if (Math::distance(m_waypoints.at(m_currentWaypoint).getPosition(), aiVec) < m_waypoints.at(m_currentWaypoint).getRadius())
+	{
+		nextwaypoint = true;
+
+		//if (m_waypoints.size() - 1 == m_currentWaypoint)
+		//{
+		//	//m_currentWaypoint = 0;
+		//	m_currentWaypoint = m_currentWaypoint = 0;
+		//	//m_currentWaypoint = m_currentWaypoint + 1;
+		//}
+		//else
+		//{
+		//	m_currentWaypoint++;
+		//	
+		//}
+
+		if (m_currentWaypoint > m_waypoints.size() -1 )
+		{
+			m_currentWaypoint = m_currentWaypoint - 9;
+		}
+
+		/*if (m_waypoints.at(m_currentWaypoint).getPosition() == aiPos->m_position)
+		{
+			m_currentWaypoint--;
+		}*/
+	}
+
+	if (nextwaypoint == true)
+	{
+		m_currentWaypoint = (m_currentWaypoint + 1) % m_waypoints.size();
+		nextwaypoint = false;
+	}
+
+	if (m_currentWaypoint == 8)
+	{
+		int x = 0;
+	}
+	return m_waypoints.at(m_currentWaypoint).getPosition() - aiVec;
+	//return sf::Vector2f(0,0);
+	//return aiReturned;
 }
 
 sf::Vector2f TankAi::collisionAvoidance(entityx::Entity::Id aiId, 

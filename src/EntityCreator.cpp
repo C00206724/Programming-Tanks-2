@@ -102,4 +102,5 @@ WaypointCreator::WaypointCreator(sf::Vector2f position, double radius) :
 void WaypointCreator::create(entityx::Entity& entity)
 {
 	entity.assign<Position>(m_place, m_radius);
+	entity.assign<WaypointData>();
 }
